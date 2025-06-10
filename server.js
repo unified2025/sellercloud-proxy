@@ -11,7 +11,7 @@ app.use(express.text({ type: 'text/xml' }));
 app.post('/authenticate', async (req, res) => {
   try {
     const response = await axios.post(
-      'http://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
+      'http://unifiedsolutions.ws.sellercloud.us',
       req.body,
       {
         headers: {
@@ -29,7 +29,7 @@ app.post('/authenticate', async (req, res) => {
 app.post('/get-product', async (req, res) => {
   try {
     const response = await axios.post(
-      'http://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
+      'http://unifiedsolutions.ws.sellercloud.us',
       req.body,
       {
         headers: {
