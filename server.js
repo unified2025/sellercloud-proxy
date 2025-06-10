@@ -8,6 +8,7 @@ const port = process.env.PORT || 3000;
 app.use(cors());
 app.use(express.text({ type: 'text/xml' }));
 
+// AUTHENTICATE
 app.post('/authenticate', async (req, res) => {
   try {
     const response = await axios.post(
@@ -26,6 +27,7 @@ app.post('/authenticate', async (req, res) => {
   }
 });
 
+// GET PRODUCT BY SERIAL
 app.post('/get-product', async (req, res) => {
   try {
     const response = await axios.post(
@@ -43,7 +45,6 @@ app.post('/get-product', async (req, res) => {
     res.status(500).send(error.toString());
   }
 });
-
 
 app.listen(port, () => {
   console.log(`✅ Sellercloud proxy running on port ${port}`);
