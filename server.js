@@ -28,6 +28,33 @@ app.post('/get-product', async (req, res) => {
   }
 });
 
+app.post("/transfer-bin", async (req, res) => {
+  try {
+    const xml = await getRawBody(req, {
+      length: req.headers["content-length"],
+      limit: "1mb",
+      encoding: true,
+    });
+
+    const response = await axios.post(
+      "https://unifiedsolutions.ws.sellercloud.us/scservice.asmx",
+      xml,
+      {
+        headers: {
+          "Content-Type": "text/xml; charset=utf-8",
+          SOAPAction: "http://api.sellercloud.com/WarehouseBin_Transfer",
+        },
+      }
+    );
+
+    res.status(200).send(response.data);
+  } catch (error) {
+    console.error("❌ Transfer Proxy Error:", error.message);
+    res.status(500).send(error.response?.data || "Internal Server Error");
+  }
+});
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Proxy server running on port ${PORT}`);
