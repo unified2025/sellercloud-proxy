@@ -1,17 +1,16 @@
-import express from 'express';
-import axios from 'axios';
-import cors from 'cors';
+const express = require('express');
+const bodyParser = require('body-parser');
+const axios = require('axios');
+const cors = require('cors');
 
 const app = express();
-const port = process.env.PORT || 3000;
-
 app.use(cors());
-app.use(express.text({ type: 'text/xml' }));
+app.use(bodyParser.text({ type: 'text/xml' }));
 
 app.post('/authenticate', async (req, res) => {
   try {
     const response = await axios.post(
-      'http://unifiedsolutions.ws.sellercloud.us',
+      'http://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
       req.body,
       {
         headers: {
@@ -22,7 +21,8 @@ app.post('/authenticate', async (req, res) => {
     );
     res.send(response.data);
   } catch (error) {
-    res.status(500).send(error.toString());
+    console.error('Authentication error:', error.response?.data || error.message);
+    res.status(500).send(error.response?.data || 'Internal server error');
   }
 });
 
@@ -45,7 +45,7 @@ app.post('/get-product', async (req, res) => {
   }
 });
 
-
-app.listen(port, () => {
-  console.log(`✅ Sellercloud proxy running on port ${port}`);
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
