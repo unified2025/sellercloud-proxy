@@ -29,12 +29,12 @@ app.post('/authenticate', async (req, res) => {
 app.post('/get-product', async (req, res) => {
   try {
     const response = await axios.post(
-      'http://unifiedsolutions.ws.sellercloud.us',
+      'https://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
       req.body,
       {
         headers: {
           'Content-Type': 'text/xml; charset=utf-8',
-          'SOAPAction': '"http://api.sellercloud.com/GetProductDetailsBySerial"'
+          'SOAPAction': '"http://api.sellercloud.com/GetProductInfoBySerial"'
         }
       }
     );
