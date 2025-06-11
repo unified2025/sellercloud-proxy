@@ -22,10 +22,17 @@ app.post("/authenticate", async (req, res) => {
       {
         headers: {
           "Content-Type": "text/xml; charset=utf-8",
-          'SOAPAction': '"http://api.sellercloud.com/Authenticate"'
+          SOAPAction: "http://api.sellercloud.com/Authenticate",
         },
       }
     );
+
+    res.status(200).send(response.data);
+  } catch (error) {
+    console.error("❌ Authenticate Proxy Error:", error.message);
+    res.status(500).send(error.response?.data || "Internal Server Error");
+  }
+});
 
 // Route for GetProductInfoBySerial
 app.post("/get-product", async (req, res) => {
