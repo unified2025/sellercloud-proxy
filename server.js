@@ -1,9 +1,12 @@
 import express from "express";
 import axios from "axios";
 import getRawBody from "raw-body";
+import cors from "cors";
 
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+app.use(cors());
 
 // Route for GetProductInfoBySerial
 app.post("/get-product", async (req, res) => {
