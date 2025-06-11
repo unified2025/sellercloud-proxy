@@ -29,7 +29,7 @@ app.post('/authenticate', async (req, res) => {
 app.post('/get-product', async (req, res) => {
   try {
     const response = await axios.post(
-      'https://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
+      'http://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
       req.body,
       {
         headers: {
@@ -40,9 +40,11 @@ app.post('/get-product', async (req, res) => {
     );
     res.send(response.data);
   } catch (error) {
-    res.status(500).send(error.toString());
+    console.error('GetProductInfoBySerial error:', error.response?.data || error.message);
+    res.status(500).send(error.response?.data || 'Internal server error');
   }
 });
+
 
 app.listen(port, () => {
   console.log(`✅ Sellercloud proxy running on port ${port}`);
