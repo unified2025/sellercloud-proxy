@@ -15,6 +15,9 @@ app.post("/authenticate", async (req, res) => {
       limit: "1mb",
       encoding: true,
     });
+    
+     // 🔍 Log the full XML that will be sent to Sellercloud
+    console.log("🔐 Auth XML:\n", xml);
 
     const response = await axios.post(
       "https://unifiedsolutions.ws.sellercloud.us/scservice.asmx",
