@@ -29,7 +29,7 @@ app.post('/authenticate', async (req, res) => {
 app.post('/get-product', async (req, res) => {
   try {
     const response = await axios.post(
-      'http://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
+      'https://unifiedsolutions.ws.sellercloud.us/scservice.asmx',
       req.body,
       {
         headers: {
