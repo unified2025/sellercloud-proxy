@@ -8,7 +8,7 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
-app.post('/authenticate', async (req, res) => {
+app.post("/authenticate", async (req, res) => {
   try {
     const xml = await getRawBody(req, {
       length: req.headers["content-length"],
