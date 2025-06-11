@@ -8,6 +8,25 @@ const PORT = process.env.PORT || 3000;
 
 app.use(cors());
 
+app.post('/authenticate', async (req, res) => {
+  try {
+    const xml = await getRawBody(req, {
+      length: req.headers["content-length"],
+      limit: "1mb",
+      encoding: true,
+    });
+
+    const response = await axios.post(
+      "https://unifiedsolutions.ws.sellercloud.us/scservice.asmx",
+      xml,
+      {
+        headers: {
+          "Content-Type": "text/xml; charset=utf-8",
+          'SOAPAction': '"http://api.sellercloud.com/Authenticate"'
+        },
+      }
+    );
+
 // Route for GetProductInfoBySerial
 app.post("/get-product", async (req, res) => {
   try {
